@@ -4,6 +4,7 @@
     }
 </style>
 <form action="{{ url('admitted/services/'.$id) }}" method="post">
+    {{ csrf_field() }}
    <div class="modal-body">
        <label>Date</label>:
        <input type="text" class="form-control form-control-sm" id="datetimepicker" name="date_given" />
@@ -23,10 +24,10 @@
                    </label>
                </td>
                <td width="25%">
-                   <input type="text" name="amount[]" value="{{ $row->amount }}" class="form-control form-control-sm">
+                   <input type="text" name="amount[{{ $row->id }}]" value="{{ $row->amount }}" class="form-control form-control-sm">
                </td>
                <td width="20%">
-                   <input type="number" min="1" value="1" class="form-control form-control-sm">
+                   <input type="number" name="qty[{{ $row->id }}]" min="1" value="1" class="form-control form-control-sm">
                </td>
            </tr>
            @endforeach

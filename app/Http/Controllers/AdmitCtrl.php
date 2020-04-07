@@ -97,8 +97,21 @@ class AdmitCtrl extends Controller
         ]);
     }
 
-    function availServices($id)
+    function availServices(Request $req, $id)
     {
-        dd($_POST);
+        foreach($req->services as $s)
+        {
+            $qty = $req->qty[$s];
+            $amount = $req->amount[$s];
+            $data = array(
+                'pat_id' => $id,
+                'service_id' => $s,
+                'date_given' => $req->date_given,
+                'qty' => $qty,
+                'amount' => $amount,
+                'total' => $qty * $amount
+            );
+            print_r($data);
+        }
     }
 }
