@@ -28,7 +28,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="name" required name="name" placeholder="Enter Charge Name...">
+                                    <input type="text" class="form-control" id="name" required name="name" placeholder="Enter Description...">
                                 </div>
                                 <div class="form-group">
                                     <select name="type" id="" class="form-control">
