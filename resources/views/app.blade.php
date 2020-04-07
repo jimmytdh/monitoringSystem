@@ -75,7 +75,7 @@
                         <a class="dropdown-item {{ (isset($sub) && $sub=='brgy') ? 'active':'' }}" href="{{ url('/library/brgy') }}"><i class="fa fa-map"></i> Barangay</a>
                         <a class="dropdown-item {{ (isset($sub) && $sub=='comorbid') ? 'active':'' }}" href="{{ url('/library/comorbid') }}"><i class="fa fa-wheelchair"></i> Co-Morbidity</a>
                         <a class="dropdown-item {{ (isset($sub) && $sub=='charges') ? 'active':'' }}" href="{{ url('/library/charges') }}"><i class="fa fa-money"></i> Manage Charges</a>
-                        <a class="dropdown-item {{ (isset($sub) && $sub=='services') ? 'active':'' }}" href="{{ url('/library/services') }}"><i class="fa fa-stethoscope"></i> Services</a>
+                        <a class="dropdown-item {{ (isset($sub) && $sub=='services') ? 'active':'' }}" href="{{ url('/library/services') }}"><i class="fa fa-stethoscope"></i> Supply / Services</a>
                     </div>
                 </li>
 
