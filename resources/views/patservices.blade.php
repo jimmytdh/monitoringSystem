@@ -27,6 +27,9 @@
                         <a href="#services" data-service="pharmacy" data-toggle="modal" class="list-group-item list-group-item-action">
                             <i class="fa fa-h-square"></i> PHARMACY
                         </a>
+                        <a href="#services" data-service="supply" data-toggle="modal" class="list-group-item list-group-item-action">
+                            <i class="fa fa-truck"></i> SUPPLY
+                        </a>
                         <a href="#" class="list-group-item list-group-item-action">
                             <i class="fa fa-user-md"></i> COURSE IN THE WARD
                         </a>

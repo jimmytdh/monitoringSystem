@@ -11,7 +11,7 @@
        <hr>
        <table class="table table-sm table-bordered table-striped">
            <tr>
-               <th>Services</th>
+               <th>Services/Supply</th>
                <th>Amount</th>
                <th>Qty</th>
            </tr>

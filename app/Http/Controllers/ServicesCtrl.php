@@ -28,7 +28,8 @@ class ServicesCtrl extends Controller
         $section = array(
             'Laboratory',
             'Pharmacy',
-            'Radiology'
+            'Radiology',
+            'Supply'
         );
 
         return view('services',[
