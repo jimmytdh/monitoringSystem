@@ -143,7 +143,7 @@
         $('#datetimepicker').daterangepicker({
             "singleDatePicker": true,
             "timePicker": true,
-            "startDate": "{{ date('m/d/Y') }}",
+            "startDate": "{{ date('m/d/Y H:i') }}",
             "locale" : {
                 "format" : "MM/DD/YYYY HH:mm"
             }

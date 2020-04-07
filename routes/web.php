@@ -95,7 +95,7 @@ Route::get('/library/muncity/list/{code}','LibraryCtrl@getMuncityList');
 Route::get('/library/brgy/list/{code}','LibraryCtrl@getBrgyList');
 Route::get('/library/loading','LibraryCtrl@loadingPage');
 Route::get('/reset','LibraryCtrl@resetAll');
-Route::get('/fix','LibraryCtrl@fixConsultation');
+//Route::get('/fix','LibraryCtrl@fixConsultation');
 //End Library
 
 

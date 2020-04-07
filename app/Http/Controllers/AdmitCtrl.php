@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Admit;
 use App\Patient;
+use App\PatServices;
 use App\Services;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -77,11 +78,23 @@ class AdmitCtrl extends Controller
     function services($id)
     {
         $patient = Patient::find($id);
+        $adm = Admit::where('pat_id',$id)
+                    ->orderBy('date_admitted','desc')
+                    ->first();
+        $start = Carbon::parse($adm->date_admitted)->format('Y-m-d');
+        $end = Carbon::today()->format('Y-m-d');
+
+        $data = PatServices::select('patservices.*','services.section','services.name')
+                    ->leftJoin('services','services.id','=','patservices.service_id')
+                    ->where('pat_id',$id)
+                    ->whereBetween('date_given',[$start,$end])
+                    ->get();
+
         return view('patservices',[
             'name' => "$patient->lname, $patient->fname $patient->mname",
             'menu' => 'patients',
             'sub' => 'admit',
-            'data' => array(),
+            'data' => $data,
             'id' => $id
         ]);
     }
@@ -106,12 +119,14 @@ class AdmitCtrl extends Controller
             $data = array(
                 'pat_id' => $id,
                 'service_id' => $s,
-                'date_given' => $req->date_given,
+                'date_given' => Carbon::parse($req->date_given),
                 'qty' => $qty,
                 'amount' => $amount,
                 'total' => $qty * $amount
             );
-            print_r($data);
+            PatServices::create($data);
         }
+
+        return redirect()->back()->with('status','saved');
     }
 }

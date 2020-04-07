@@ -11,6 +11,8 @@ class PatServices extends Model
         'pat_id',
         'service_id',
         'date_given',
-        'qty'
+        'qty',
+        'amount',
+        'total'
     ];
 }
