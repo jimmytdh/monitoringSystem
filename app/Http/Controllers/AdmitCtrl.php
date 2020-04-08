@@ -21,7 +21,8 @@ class AdmitCtrl extends Controller
     {
         $data = Admit::select(
                         'patients.*',
-                        'patadm.date_admitted'
+                        'patadm.date_admitted',
+                        'patadm.id as adm_id'
                     )
                     ->leftJoin('patients','patients.id','=','patadm.pat_id');
         $keyword = Session::get('admitSearch');
@@ -34,7 +35,9 @@ class AdmitCtrl extends Controller
             });
         }
 
-        $data = $data->orderBy('date_admitted','desc')
+        $data = $data
+            ->where('date_discharge',null)
+            ->orderBy('date_admitted','desc')
             ->paginate(30);
 
         return view('admitted',[
@@ -140,5 +143,18 @@ class AdmitCtrl extends Controller
     {
         PatServices::find($id)->delete();
         return redirect()->back()->with('status','deleted');
+    }
+
+    function discharge(Request $req,$id)
+    {
+        $adm = Admit::find($id);
+        $adm_id = $adm->id;
+        $tmp = $adm->update([
+                'date_discharge' => Carbon::parse($req->dateTime),
+                'disposition' => $req->status
+            ]);
+        Patient::find($adm->pat_id)->update(['status' => null]);
+        HistoryCtrl::addHistory($adm->pat_id,$id,'Discharged',Carbon::parse($req->dateTime));
+        return redirect()->back()->with('status','discharged');
     }
 }

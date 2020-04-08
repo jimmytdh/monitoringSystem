@@ -31,6 +31,7 @@ Route::post('/patients/{id}','PatientCtrl@update');
 Route::get('/admitted','AdmitCtrl@index');
 Route::post('/admitted/search','AdmitCtrl@search');
 Route::post('/admitted/save/{id}','AdmitCtrl@save');
+Route::post('/admitted/discharge/{id}','AdmitCtrl@discharge');
 Route::get('/admitted/services/remove/{id}','AdmitCtrl@removeService');
 Route::get('/admitted/services/{id}','AdmitCtrl@services');
 Route::post('/admitted/services/{id}','AdmitCtrl@availServices');

@@ -42,6 +42,12 @@
                 </div>
             @endif
 
+            @if(session('status')=='discharged')
+                <div class="alert alert-success">
+                    <i class="fa fa-check"></i> Successfully Discharged!
+                </div>
+            @endif
+
             @if(session('status')=='deleted')
                 <div class="alert alert-warning">
                     <i class="fa fa-check"></i> Successfully Deleted!
@@ -75,7 +81,7 @@
                                     <a class="dropdown-item" href="{{ url('/soa/'.$row->id) }}">Update SOA</a>
                                     <a class="dropdown-item" href="{{ url('/soa/print/'.$row->id) }}">Print SOA</a>
                                     <div role="separator" class="dropdown-divider"></div>
-                                    <a class="dropdown-item dischargePatient text-danger" href="{{ url('/admitted/discharge/'.$row->id) }}">Discharge Patient</a>
+                                    <a class="dropdown-item text-danger" href="#dischargePatient" data-toggle="modal" data-id="{{ $row->adm_id }}">Discharge Patient</a>
                                 </div>
                             </td>
                             <td class="{{ ($row->status!='ADM') ? 'text-danger':'' }}"><strong><small>{{ date('F d, Y',strtotime($row->date_admitted)) }}</small></strong></td>
@@ -105,6 +111,7 @@
 
 @section('modal')
     @include('modal.history')
+    @include('modal.discharge')
 @endsection
 
 @section('js')
@@ -125,6 +132,19 @@
 
             $('#historyPatient').on('hidden.bs.modal', function () {
                 $('.history_content').load(loading);
+            });
+
+            $('a[href="#dischargePatient"]').on('click',function(){
+                var url = "{{ url('/admitted/discharge') }}/"+$(this).data('id');
+                $('#dischargeForm').attr('action',url);
+            });
+            $('#datetimepicker').daterangepicker({
+                "singleDatePicker": true,
+                "timePicker": true,
+                "startDate": "{{ date('m/d/Y H:i') }}",
+                "locale" : {
+                    "format" : "MM/DD/YYYY HH:mm"
+                }
             });
 
         });

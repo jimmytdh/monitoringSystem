@@ -100,6 +100,13 @@
                             <legend>Diagnosis/Status</legend>
                             {!! $adm->status !!}
                         </fieldset>
+
+                    @elseif($row->transaction=='Discharged')
+                        <?php $adm = \App\Admit::find($row->ref_id);?>
+                        <fieldset disabled>
+                            <legend>Diagnosis/Status</legend>
+                            {!! $adm->disposition !!}
+                        </fieldset>
                     @endif
                 </div>
             </div>
