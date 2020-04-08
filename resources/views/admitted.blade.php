@@ -12,12 +12,9 @@
 
 @section('body')
     <div class="pull-right mb-2 col-lg-4 col-xs-12">
-        <form action="{{ url('/patients/search') }}" method="post">
+        <form action="{{ url('/admitted/search') }}" method="post">
             {{ csrf_field() }}
             <div class="input-group input-group-sm mb-2">
-                <div class="input-group-prepend mr-1">
-                    <button class="btn btn-info" data-toggle="modal" data-target="#addPatient" type="button"><i class="fa fa-plus"></i> Add New</button>
-                </div>
                 <input type="text" class="form-control" name="keyword" value="{{ Session::get('admitSearch') }}" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                 <div class="input-group-append">
                     <button class="btn btn-info" type="submit"><i class="fa fa-search"></i></button>

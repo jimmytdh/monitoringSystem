@@ -30,11 +30,11 @@ class AdmitCtrl extends Controller
                 $q->where('fname','like',"%$keyword%")
                     ->orwhere('mname','like',"%$keyword%")
                     ->orwhere('lname','like',"%$keyword%")
-                    ->orwhere('pat_id','like',"%$keyword%");
+                    ->orwhere('patients.pat_id','like',"%$keyword%");
             });
         }
 
-        $data = $data->orderBy('lname','asc')
+        $data = $data->orderBy('date_admitted','desc')
             ->paginate(30);
 
         return view('admitted',[
@@ -42,6 +42,12 @@ class AdmitCtrl extends Controller
             'sub' => 'admit',
             'data' => $data
         ]);
+    }
+
+    public function search(Request $req)
+    {
+        Session::put('admitSearch',$req->keyword);
+        return self::index();
     }
 
     function save(Request $req, $id)
@@ -128,5 +134,11 @@ class AdmitCtrl extends Controller
         }
 
         return redirect()->back()->with('status','saved');
+    }
+
+    function removeService($id)
+    {
+        PatServices::find($id)->delete();
+        return redirect()->back()->with('status','deleted');
     }
 }

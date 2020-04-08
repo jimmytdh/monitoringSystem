@@ -164,6 +164,7 @@
         });
     });
 </script>
+@include('script.analytics')
 </body>
 
 </html>

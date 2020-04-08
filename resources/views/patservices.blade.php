@@ -31,7 +31,8 @@
                             <i class="fa fa-truck"></i> SUPPLY
                         </a>
                         <a href="#" class="list-group-item list-group-item-action">
-                            <i class="fa fa-user-md"></i> COURSE IN THE WARD
+                            <i
+                                class="fa fa-user-md"></i> COURSE IN THE WARD
                         </a>
                     </div>
                 </div>
@@ -45,9 +46,9 @@
                     </div>
                 @endif
 
-                @if(session('status')=='updated')
+                @if(session('status')=='deleted')
                     <div class="alert alert-info">
-                        <i class="fa fa-check-circle"></i> Successfully Updated!
+                        <i class="fa fa-check-circle"></i> Successfully Deleted!
                     </div>
                 @endif
 
@@ -73,7 +74,11 @@
                                 @foreach($data as $row)
                                     <?php $total += $row->total; ?>
                                     <tr>
-                                        <td>{{ date('M d, Y h:i A',strtotime($row->date_given)) }}</td>
+                                        <td>
+                                            <a href="{{ url('/admitted/services/remove/'.$row->id) }}" class="delete" style="text-decoration: none;">
+                                                <i class="fa fa-trash text-danger"></i>
+                                            </a>
+                                            {{ date('M d, Y h:i A',strtotime($row->date_given)) }}</td>
                                         <td>{{ $row->name }}</td>
                                         <td class="text-red text-right">{{ number_format($row->amount,2) }}</td>
                                         <td class="text-red text-center">{{ number_format($row->qty) }}</td>
@@ -83,7 +88,9 @@
                                 </tbody>
                             </table>
                         @else
-                            <img src="{{ url("/images/no_result_found.gif") }}" class="img-thumbnail" width="100%" alt="">
+                            <div class="alert alert-warning">
+                                <i class="fa fa-exclamation-triangle"></i> No services availed!
+                            </div>
                         @endif
                     </div>
                     <div class="box-footer">
@@ -129,5 +136,11 @@
             $('.service_content').load(loading);
         });
 
+        $('.delete').on('click',function(e){
+             e.preventDefault();
+             var r = confirm('Are you sure you want to delete this service?');
+             if(r==true)
+                 window.location = $(this).attr('href');
+        });
     </script>
 @endsection
