@@ -85,6 +85,9 @@
                             <a class="dropdown-item" href="#admitPatient" data-toggle="modal" data-id="{{ $row->id }}">Admit Patient</a>
                             <a class="dropdown-item" href="#historyPatient" data-toggle="modal" data-id="{{ $row->id }}">History</a>
                             <div role="separator" class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ url('/soa/'.$row->id) }}">Update SOA</a>
+                            <a class="dropdown-item" href="{{ url('/soa/print/'.$row->id) }}">Print SOA</a>
+                            <div role="separator" class="dropdown-divider"></div>
                             <a class="dropdown-item deletePatient text-danger" href="{{ url('/patients/delete/'.$row->id) }}">Delete Patient</a>
                         </div>
                     </td>

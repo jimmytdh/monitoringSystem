@@ -31,8 +31,8 @@
             }]
         }
     };
-	$.get("{{ url('/home/chart') }}", function(data, status){
-        console.log(data);
+	$.get("{{ url('/home/chart') }}", function(data, status)
+{        console.log(data);
         var area = data.area;
         new Chart('areaChart', {
             type: 'line',
