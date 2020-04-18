@@ -100,7 +100,7 @@
                         <table style="width:100%">
                             <tr>
                                 <td width="30%">Hospital Number : <strong>{{ $patient->pat_id }}</strong></td>
-                                <td class="text-right" width="50%" colspan="2">Date : <strong>{{ date('F d, Y',strtotime($patient->created_at)) }}</strong></td>
+                                <td class="text-right" width="50%" colspan="2">Date : <strong>{{ date('F d, Y') }}</strong></td>
                             </tr>
 
                             <tr>
