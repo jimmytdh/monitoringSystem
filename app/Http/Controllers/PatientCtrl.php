@@ -24,6 +24,10 @@ class PatientCtrl extends Controller
 
     public function index()
     {
+        $check = AccessCtrl::allowProcess('patient_list');
+        if(!$check)
+            return redirect('/');
+
         $data = Patient::select('*');
         $keyword = Session::get('patientSearch');
         if($keyword){
@@ -55,6 +59,10 @@ class PatientCtrl extends Controller
 
     public function save(Request $req)
     {
+        $check = AccessCtrl::allowProcess('patient_save');
+        if(!$check)
+            return redirect('/');
+
         $info = array(
             'pat_id' => '',
             'fname' => $req->fname,
@@ -141,6 +149,10 @@ class PatientCtrl extends Controller
 
     public function update(Request $req, $id)
     {
+        $check = AccessCtrl::allowProcess('patient_update');
+        if(!$check)
+            return redirect('/');
+
         if(!$req->fname && !$req->lname)
         {
             return self::addConsultation($req, $id);
@@ -276,6 +288,10 @@ class PatientCtrl extends Controller
 
     public function delete($id)
     {
+        $check = AccessCtrl::allowProcess('patient_delete');
+        if(!$check)
+            return redirect()->back()->with('status','denied');
+
         Patient::find($id)->delete();
         PatCharges::where('pat_id',$id)->delete();
         PatComorbid::where('pat_id',$id)->delete();
@@ -286,6 +302,10 @@ class PatientCtrl extends Controller
 
     public function history($id)
     {
+        $check = AccessCtrl::allowProcess('patient_history');
+        if(!$check)
+            return redirect('/');
+
         $data = PatHistory::where('pat_id',$id)->orderBy('date_transaction','desc')->get();
         return view('load.history',[
             'data' => $data

@@ -1,3 +1,6 @@
+<?php
+$pageAccess = \Illuminate\Support\Facades\Session::get('pageAccess');
+?>
 @extends('app')
 
 @section('css')
@@ -51,6 +54,12 @@
             </div>
         @endif
 
+        @if(session('status')=='denied')
+            <div class="alert alert-danger">
+                <i class="fa fa-exclamation-triangle"></i> Operation denied!
+            </div>
+        @endif
+
         @if(session('status')=='existed')
             <div class="alert alert-warning">
                 <i class="fa fa-exclamation-triangle"></i> Oppss! The patient you selected was already admitted.
@@ -81,14 +90,14 @@
                     <td style="font-weight: bold;">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ $row->pat_id }} </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#infoPatient" data-toggle="modal" data-id="{{ $row->id }}">Update Patient</a>
-                            <a class="dropdown-item" href="#admitPatient" data-toggle="modal" data-id="{{ $row->id }}">Admit Patient</a>
-                            <a class="dropdown-item" href="#historyPatient" data-toggle="modal" data-id="{{ $row->id }}">History</a>
+                            <a class="{{ $pageAccess->patient_update }} dropdown-item" href="#infoPatient" data-toggle="modal" data-id="{{ $row->id }}">Update Patient</a>
+                            <a class="{{ $pageAccess->patient_admit }} dropdown-item" href="#admitPatient" data-toggle="modal" data-id="{{ $row->id }}">Admit Patient</a>
+                            <a class="{{ $pageAccess->patient_history }} dropdown-item" href="#historyPatient" data-toggle="modal" data-id="{{ $row->id }}">History</a>
                             <div role="separator" class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url('/soa/'.$row->id) }}">Update SOA</a>
-                            <a class="dropdown-item" href="{{ url('/soa/print/'.$row->id) }}">Print SOA</a>
-                            <div role="separator" class="dropdown-divider"></div>
-                            <a class="dropdown-item deletePatient text-danger" href="{{ url('/patients/delete/'.$row->id) }}">Delete Patient</a>
+                            <a class="{{ $pageAccess->soa_update }} dropdown-item" href="{{ url('/soa/'.$row->id) }}">Update SOA</a>
+                            <a class="{{ $pageAccess->soa_print }} dropdown-item" href="{{ url('/soa/print/'.$row->id) }}">Print SOA</a>
+                            <div role="separator" class="{{ $pageAccess->patient_delete }} dropdown-divider"></div>
+                            <a class="{{ $pageAccess->patient_delete }} dropdown-item deletePatient text-danger" href="{{ url('/patients/delete/'.$row->id) }}">Delete Patient</a>
                         </div>
                     </td>
                     <td class="{{ ($row->status!='ADM') ? 'text-danger':'' }}"><strong><small>{{ $date }}</small></strong></td>

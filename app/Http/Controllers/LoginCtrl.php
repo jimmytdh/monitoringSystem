@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Access;
 use App\User;
+use App\UserAccess;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -28,6 +30,7 @@ class LoginCtrl extends Controller
             {
                 return redirect('/login')->with('status','error');
             }
+            self::pageAccess($user->id);
             Session::put('user',$user);
             Session::put('isLogin',true);
             return redirect('/');
@@ -41,5 +44,23 @@ class LoginCtrl extends Controller
     {
         Session::flush();
         return redirect('/login');
+    }
+
+    function pageAccess($id)
+    {
+        $access = Access::get();
+        $data = array();
+        foreach($access as $row)
+        {
+            $check = UserAccess::where('user_id',$id)
+                ->where('page',$row->name)
+                ->first();
+            if($check)
+                $data[$row->name] = '';
+            else
+                $data[$row->name] = 'hidden';
+        }
+        $pageAccess = (object)$data;
+        Session::put('pageAccess',$pageAccess);
     }
 }

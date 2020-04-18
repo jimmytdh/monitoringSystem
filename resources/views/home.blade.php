@@ -1,3 +1,4 @@
+<?php $user = \Illuminate\Support\Facades\Session::get('user'); ?>
 @extends('app')
 
 @section('css')
@@ -8,7 +9,7 @@
 @endsection
 
 @section('body')
-    <h2 class="text-success title-header">Dashboard <small class="text-muted">Control Panel</small></h2>
+    <h2 class="text-success title-header">Dashboard <small class="text-muted">Welcome, {{ $user->name }}</small></h2>
 
     <div class="col-md-12">
         <div class="row">

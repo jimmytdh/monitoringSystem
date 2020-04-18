@@ -11,10 +11,15 @@ class ChargeCtrl extends Controller
     public function __construct()
     {
         $this->middleware('login');
+        $this->middleware('admin');
     }
 
     public function index($edit = false, $info = null)
     {
+        $check = AccessCtrl::allowProcess('charges');
+        if(!$check)
+            return redirect('/');
+
         $keyword = Session::get('chargeKeyword');
 
         $data = Charges::select('*');
@@ -47,6 +52,10 @@ class ChargeCtrl extends Controller
 
     public function save(Request $req)
     {
+        $check = AccessCtrl::allowProcess('charges');
+        if(!$check)
+            return redirect('/');
+
         Charges::create([
             'section' => $req->section,
             'name' => $req->name,
@@ -67,6 +76,10 @@ class ChargeCtrl extends Controller
 
     public function update(Request $req, $id)
     {
+        $check = AccessCtrl::allowProcess('charges');
+        if(!$check)
+            return redirect('/');
+
         Charges::find($id)
             ->update([
                 'section' => $req->section,
@@ -79,6 +92,10 @@ class ChargeCtrl extends Controller
 
     public function delete($id)
     {
+        $check = AccessCtrl::allowProcess('charges');
+        if(!$check)
+            return redirect('/');
+
         Charges::find($id)->delete();
         return redirect('/library/charges')->with('status','deleted');
     }

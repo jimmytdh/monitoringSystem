@@ -10,11 +10,16 @@ class ServicesCtrl extends Controller
 {
     public function __construct()
     {
+        $this->middleware('admin');
         $this->middleware('login');
     }
 
     public function index($edit = false, $info = null)
     {
+        $check = AccessCtrl::allowProcess('services');
+        if(!$check)
+            return redirect('/');
+
         $keyword = Session::get('serviceKeyword');
 
         $data = Services::select('*');
@@ -50,6 +55,10 @@ class ServicesCtrl extends Controller
 
     public function save(Request $req)
     {
+        $check = AccessCtrl::allowProcess('services');
+        if(!$check)
+            return redirect('/');
+
         Services::create([
             'section' => $req->section,
             'name' => $req->name,
@@ -70,6 +79,10 @@ class ServicesCtrl extends Controller
 
     public function update(Request $req, $id)
     {
+        $check = AccessCtrl::allowProcess('services');
+        if(!$check)
+            return redirect('/');
+
         Services::find($id)
             ->update([
                 'section' => $req->section,
@@ -82,6 +95,10 @@ class ServicesCtrl extends Controller
 
     public function delete($id)
     {
+        $check = AccessCtrl::allowProcess('services');
+        if(!$check)
+            return redirect('/');
+
         Services::find($id)->delete();
         return redirect('/library/services')->with('status','deleted');
     }

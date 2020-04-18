@@ -19,6 +19,10 @@ class AdmitCtrl extends Controller
 
     function index()
     {
+        $check = AccessCtrl::allowProcess('in_patients');
+        if(!$check)
+            return redirect('/');
+
         $data = Admit::select(
                         'patients.*',
                         'patadm.date_admitted',
@@ -55,6 +59,10 @@ class AdmitCtrl extends Controller
 
     function save(Request $req, $id)
     {
+        $check = AccessCtrl::allowProcess('patient_admit');
+        if(!$check)
+            return redirect('/patients')->with('status','denied');
+
         $date = Carbon::now();
         $check = self::checkAdmittedPatient($id);
         if($check)
@@ -86,6 +94,10 @@ class AdmitCtrl extends Controller
 
     function services($id)
     {
+        $check = AccessCtrl::allowProcess('patient_services');
+        if(!$check)
+            return redirect('/admitted')->with('status','denied');
+
         $patient = Patient::find($id);
         $adm = Admit::where('pat_id',$id)
                     ->orderBy('date_admitted','desc')
@@ -121,6 +133,10 @@ class AdmitCtrl extends Controller
 
     function availServices(Request $req, $id)
     {
+        $check = AccessCtrl::allowProcess('patient_services_add');
+        if(!$check)
+            return redirect()->back()->with('status','denied');
+
         foreach($req->services as $s)
         {
             $qty = $req->qty[$s];
@@ -141,12 +157,20 @@ class AdmitCtrl extends Controller
 
     function removeService($id)
     {
+        $check = AccessCtrl::allowProcess('patient_services_remove');
+        if(!$check)
+            return redirect()->back()->with('status','denied');
+
         PatServices::find($id)->delete();
         return redirect()->back()->with('status','deleted');
     }
 
     function discharge(Request $req,$id)
     {
+        $check = AccessCtrl::allowProcess('patient_discharge');
+        if(!$check)
+            return redirect()->back()->with('status','denied');
+
         $adm = Admit::find($id);
         $adm_id = $adm->id;
         $tmp = $adm->update([

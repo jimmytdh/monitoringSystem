@@ -1,3 +1,6 @@
+<?php
+    $pageAccess = \Illuminate\Support\Facades\Session::get('pageAccess');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,19 +55,19 @@
                 <li class="nav-item {{ ($menu=='home') ? 'active':'' }}">
                     <a class="nav-link" href="{{ url('/') }}"><i class="fa fa-home"></i> Home</a>
                 </li>
-                <li class="nav-item dropdown {{ ($menu=='patients') ? 'active':'' }}">
+                <li class="{{ $pageAccess->manage_patients }} nav-item dropdown {{ ($menu=='patients') ? 'active':'' }}">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                         <i class="fa fa-users"></i> Manage Patients
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item {{ (isset($sub) && $sub=='patients') ? 'active':'' }}" href="{{ url('/patients') }}"><i class="fa fa-stethoscope"></i> Patients</a>
-                        <a class="dropdown-item {{ (isset($sub) && $sub=='admit') ? 'active':'' }}" href="{{ url('/admitted') }}"><i class="fa fa-wheelchair"></i> In-Patient</a>
+                        <a class="{{ $pageAccess->patients }} dropdown-item {{ (isset($sub) && $sub=='patients') ? 'active':'' }}" href="{{ url('/patients') }}"><i class="fa fa-stethoscope"></i> Patients</a>
+                        <a class="{{ $pageAccess->in_patients }} dropdown-item {{ (isset($sub) && $sub=='admit') ? 'active':'' }}" href="{{ url('/admitted') }}"><i class="fa fa-wheelchair"></i> In-Patient</a>
                     </div>
                 </li>
-                <li class="nav-item {{ ($menu=='report') ? 'active':'' }}">
+                <li class="{{ $pageAccess->generate_report }} nav-item {{ ($menu=='report') ? 'active':'' }}">
                     <a class="nav-link" href="{{ url('/report') }}"><i class="fa fa-print"></i> Generate Report</a>
                 </li>
-                <li class="nav-item dropdown {{ ($menu=='lib') ? 'active':'' }}">
+                <li class="{{ $pageAccess->lib }} nav-item dropdown {{ ($menu=='lib') ? 'active':'' }}">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                         <i class="fa fa-book"></i> Library
                     </a>
@@ -72,21 +75,23 @@
 {{--                        <a class="dropdown-item {{ (isset($sub) && $sub=='brgy') ? 'active':'' }}" href="{{ url('/library/brgy') }}"><i class="fa fa-map"></i> Barangay</a>--}}
 {{--                        <a class="dropdown-item {{ (isset($sub) && $sub=='muncity') ? 'active':'' }}" href="{{ url('/library/muncity') }}"><i class="fa fa-map"></i> Municipality/City</a>--}}
 {{--                        <a class="dropdown-item {{ (isset($sub) && $sub=='province') ? 'active':'' }}" href="{{ url('/library/province') }}"><i class="fa fa-map"></i> Province</a>--}}
-                        <a class="dropdown-item {{ (isset($sub) && $sub=='brgy') ? 'active':'' }}" href="{{ url('/library/brgy') }}"><i class="fa fa-map"></i> Barangay</a>
-                        <a class="dropdown-item {{ (isset($sub) && $sub=='comorbid') ? 'active':'' }}" href="{{ url('/library/comorbid') }}"><i class="fa fa-wheelchair"></i> Co-Morbidity</a>
-                        <a class="dropdown-item {{ (isset($sub) && $sub=='charges') ? 'active':'' }}" href="{{ url('/library/charges') }}"><i class="fa fa-money"></i> Manage Charges</a>
-                        <a class="dropdown-item {{ (isset($sub) && $sub=='services') ? 'active':'' }}" href="{{ url('/library/services') }}"><i class="fa fa-stethoscope"></i> Supply / Services</a>
+                        <a class="{{ $pageAccess->brgy }} dropdown-item {{ (isset($sub) && $sub=='brgy') ? 'active':'' }}" href="{{ url('/library/brgy') }}"><i class="fa fa-map"></i> Barangay</a>
+                        <a class="{{ $pageAccess->comorbid }} dropdown-item {{ (isset($sub) && $sub=='comorbid') ? 'active':'' }}" href="{{ url('/library/comorbid') }}"><i class="fa fa-wheelchair"></i> Co-Morbidity</a>
+                        <a class="{{ $pageAccess->charges }} dropdown-item {{ (isset($sub) && $sub=='charges') ? 'active':'' }}" href="{{ url('/library/charges') }}"><i class="fa fa-money"></i> Manage Charges</a>
+                        <a class="{{ $pageAccess->services }} dropdown-item {{ (isset($sub) && $sub=='services') ? 'active':'' }}" href="{{ url('/library/services') }}"><i class="fa fa-stethoscope"></i> Supply / Services</a>
                     </div>
                 </li>
 
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown {{ ($menu=='settings') ? 'active':'' }}">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                         <i class="fa fa-gears"></i> Settings
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ url('/user/password') }}"><i class="fa fa-lock mr-1"></i> Change Password</a>
+                        <a class="dropdown-item {{ (isset($sub) && $sub=='password') ? 'active':'' }}" href="{{ url('/user/password') }}"><i class="fa fa-lock mr-1"></i> Change Password</a>
+                        <a class="{{ $pageAccess->users }} dropdown-item {{ (isset($sub) && $sub=='users') ? 'active':'' }}" href="{{ url('/users') }}"><i class="fa fa-users"></i> Manage Users</a>
+                        <a class="{{ $pageAccess->access }} dropdown-item {{ (isset($sub) && $sub=='access') ? 'active':'' }}" href="{{ url('/settings/access') }}"><i class="fa fa-lock"></i> Access Page</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-sign-out mr-1"></i> Logout</a>
+                        <a class="dropdown-item {{ (isset($sub) && $sub=='brgy') ? 'active':'' }}" href="{{ url('/logout') }}"><i class="fa fa-sign-out mr-1"></i> Logout</a>
                     </div>
                 </li>
             </ul>

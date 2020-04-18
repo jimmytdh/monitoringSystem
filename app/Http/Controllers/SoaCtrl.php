@@ -16,6 +16,10 @@ class SoaCtrl extends Controller
 
     public function index($id)
     {
+        $check = AccessCtrl::allowProcess('soa_update');
+        if(!$check)
+            return redirect('/patients')->with('status','denied');
+
         $patient = Patient::find($id);
 
         return view('updateSoa',[
@@ -51,6 +55,10 @@ class SoaCtrl extends Controller
 
     public function update(Request $req, $id)
     {
+        $check = AccessCtrl::allowProcess('soa_update');
+        if(!$check)
+            return redirect('/patients')->with('status','denied');
+
         PatCharges::where('pat_id',$id)->delete();
 
         $items = $req->items;
@@ -70,6 +78,10 @@ class SoaCtrl extends Controller
 
     public function printSoa($id)
     {
+        $check = AccessCtrl::allowProcess('soa_print');
+        if(!$check)
+            return redirect('/patients')->with('status','denied');
+
         $fixed = self::getCharges($id,'fixed');
         $room = self::getCharges($id,'room');
         $procedure = self::getCharges($id,'procedure');

@@ -52,6 +52,12 @@
                     </div>
                 @endif
 
+                @if(session('status')=='denied')
+                    <div class="alert alert-danger">
+                        <i class="fa fa-exclamation-triangle"></i> Operation denied!
+                    </div>
+                @endif
+
                 <div class="box box-primary">
 {{--                    <div class="box-header with-border">--}}
 {{--                        <h3 class="box-title"></h3>--}}

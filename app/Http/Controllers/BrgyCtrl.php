@@ -13,10 +13,15 @@ class BrgyCtrl extends Controller
     public function __construct()
     {
         $this->middleware('login');
+        $this->middleware('admin');
     }
 
     public function index($edit = false, $info = null, $muncity = null, $prov_code = null)
     {
+        $check = AccessCtrl::allowProcess('brgy');
+        if(!$check)
+            return redirect('/');
+
         $keyword = Session::get('brgyKeyword');
 
         $data = Brgy::select('brgy.*');
@@ -47,6 +52,9 @@ class BrgyCtrl extends Controller
 
     public function save(Request $req)
     {
+        $check = AccessCtrl::allowProcess('brgy');
+        if(!$check)
+            return redirect('/');
 
         $code = Brgy::where('mun_code',$req->muncity)
                     ->orderBy('code','desc')
@@ -76,6 +84,10 @@ class BrgyCtrl extends Controller
 
     public function update(Request $req, $id)
     {
+        $check = AccessCtrl::allowProcess('brgy');
+        if(!$check)
+            return redirect('/');
+
         Brgy::find($id)
             ->update([
                 'mun_code' => $req->muncity,
@@ -86,6 +98,10 @@ class BrgyCtrl extends Controller
 
     public function delete($id)
     {
+        $check = AccessCtrl::allowProcess('brgy');
+        if(!$check)
+            return redirect('/');
+
         Brgy::find($id)->delete();
         return redirect('/library/brgy')->with('status','deleted');
     }

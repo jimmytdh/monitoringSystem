@@ -11,11 +11,16 @@ class ComorbidCtrl extends Controller
 {
     public function __construct()
     {
+        $this->middleware('admin');
         $this->middleware('login');
     }
 
     public function index($edit = false, $info = null)
     {
+        $check = AccessCtrl::allowProcess('comorbid');
+        if(!$check)
+            return redirect('/');
+
         $keyword = Session::get('morbidKeyword');
 
         $data = CoMorbid::select('*');
@@ -42,6 +47,10 @@ class ComorbidCtrl extends Controller
 
     public function save(Request $req)
     {
+        $check = AccessCtrl::allowProcess('comorbid');
+        if(!$check)
+            return redirect('/');
+
         CoMorbid::create(['name' => $req->name]);
         return redirect()->back()->with('status','saved');
     }
@@ -57,6 +66,10 @@ class ComorbidCtrl extends Controller
 
     public function update(Request $req, $id)
     {
+        $check = AccessCtrl::allowProcess('comorbid');
+        if(!$check)
+            return redirect('/');
+
         CoMorbid::find($id)
             ->update([
                 'name' => $req->name
@@ -66,6 +79,10 @@ class ComorbidCtrl extends Controller
 
     public function delete($id)
     {
+        $check = AccessCtrl::allowProcess('comorbid');
+        if(!$check)
+            return redirect('/');
+
         CoMorbid::find($id)->delete();
         return redirect('/library/comorbid')->with('status','deleted');
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Access;
 use App\Admit;
 use App\Brgy;
 use App\Consultation;
@@ -14,6 +15,11 @@ use Illuminate\Http\Request;
 
 class LibraryCtrl extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     public function getMuncityList($code)
     {
         $list = Muncity::where('prov_code',$code)
@@ -58,13 +64,12 @@ class LibraryCtrl extends Controller
         return redirect('/patients');
     }
 
-    function fixConsultation()
+    function fix()
     {
-        $con = Consultation::get();
-        foreach($con as $c){
-            $date = Carbon::parse($c->date_consultation)->format('Y-m-d');
-            HistoryCtrl::addHistory($c->pat_id,$c->id,'Consultation', $date);
+        $list = Access::get();
+        foreach($list as $row)
+        {
+            echo "DB::table('access')->insert(['name' => '$row->name']);<br>";
         }
-        return 'Done';
     }
 }

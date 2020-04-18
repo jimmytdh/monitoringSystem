@@ -98,8 +98,25 @@ Route::get('/library/muncity/list/{code}','LibraryCtrl@getMuncityList');
 Route::get('/library/brgy/list/{code}','LibraryCtrl@getBrgyList');
 Route::get('/library/loading','LibraryCtrl@loadingPage');
 Route::get('/reset','LibraryCtrl@resetAll');
-//Route::get('/fix','LibraryCtrl@fixConsultation');
+Route::get('/fix','LibraryCtrl@fix');
 //End Library
 
+//Users
+Route::get('/users','UserCtrl@index');
+Route::post('/users/save','UserCtrl@save');
+Route::post('/users/search','UserCtrl@search');
+Route::get('/users/delete/{id}','UserCtrl@delete');
+Route::get('/users/{id}','UserCtrl@edit');
+Route::post('/users/{id}','UserCtrl@update');
+//end User
+
+//Users
+Route::get('/settings/access','AccessCtrl@index');
+Route::post('/settings/access/save','AccessCtrl@save');
+Route::post('/settings/access/search','AccessCtrl@search');
+Route::get('/settings/access/delete/{id}','AccessCtrl@delete');
+Route::get('/settings/access/{id}','AccessCtrl@edit');
+Route::post('/settings/access/{id}','AccessCtrl@update');
+//end User
 
 
