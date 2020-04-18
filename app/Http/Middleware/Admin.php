@@ -16,9 +16,9 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        $user = Session::get('user');
-        if($user->level!='admin')
-            return redirect('/');
+//        $user = Session::get('user');
+//        if($user->level!='admin')
+//            return redirect('/');
         return $next($request);
     }
 }

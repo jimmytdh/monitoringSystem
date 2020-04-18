@@ -12,7 +12,7 @@ class UserCtrl extends Controller
 {
     function __construct()
     {
-        $this->middleware('admin');
+
     }
 
     public function index($edit = false, $info = null)
