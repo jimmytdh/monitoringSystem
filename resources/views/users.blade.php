@@ -112,6 +112,12 @@
                         <i class="fa fa-exclamation-triangle"></i> Successfully Deleted!
                     </div>
                 @endif
+
+                @if(session('status')=='duplicate')
+                    <div class="alert alert-danger">
+                        <i class="fa fa-exclamation-triangle"></i> Username already exist. Please use different username!
+                    </div>
+                @endif
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <div class="pull-right">

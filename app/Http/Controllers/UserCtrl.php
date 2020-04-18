@@ -52,6 +52,10 @@ class UserCtrl extends Controller
         if(!$check)
             return redirect('/');
 
+        $checkUsername = User::where('username',$req->username)->first();
+        if($checkUsername)
+            return redirect()->back()->with('status','duplicate');
+
         $u = User::create([
             'name' => $req->name,
             'username' => $req->username,
