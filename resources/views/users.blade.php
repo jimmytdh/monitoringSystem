@@ -35,7 +35,6 @@
                                 <div class="form-group">
                                     <label>Select Page Access</label>
                                     <select name="access[]" class="form-control" multiple style="height: 300px;">
-                                        <option value="">None...</option>
                                         @foreach($access as $a)
                                         <option>{{ $a->name }}</option>
                                         @endforeach
@@ -73,7 +72,6 @@
                                 <div class="form-group">
                                     <label>Select Page Access</label>
                                     <select name="access[]" class="form-control" multiple style="height: 300px;">
-                                        <option value="">None...</option>
                                         @foreach($access as $a)
                                         <?php $check = \App\Http\Controllers\AccessCtrl::checkPageAccess($info->id,$a->name); ?>
                                             <option @if($check) selected @endif>{{ $a->name }}</option>
