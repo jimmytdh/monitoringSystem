@@ -53,6 +53,9 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group">
+                        <input type="text" name="purok" value="{{ $info->purok }}" class="form-control-sm form-control" placeholder="Household No./Purok/Sitio" required>
+                    </div>
                 </fieldset>
                 <fieldset id="contactInfo">
                     <legend>Contact Information</legend>
@@ -152,6 +155,15 @@
                             </td>
                             <td><input type="text" name="date_diarrhea" id="" class="form-control form-control-sm datepickerUpdate" value="{{ date('m/d/Y',strtotime($consultation->date_diarrhea)) }}"></td>
                         </tr>
+                        <tr>
+                            <td>
+                                <label>
+                                    <input type="checkbox" name="bd" value="Y" @if($consultation->dob=='Y') checked @endif>
+                                    Breathing Difficulty
+                                </label>
+                            </td>
+                            <td><input type="text" name="date_bd" id="" class="form-control form-control-sm datepickerUpdate" value="{{ date('m/d/Y',strtotime($consultation->date_dob)) }}"></td>
+                        </tr>
                     </table>
                 </fieldset>
                 <fieldset>
@@ -165,7 +177,19 @@
                         <label for="travelno" style="font-size: 0.9em; font-weight: normal;">
                             <input type="radio" name="travel" id="travelno" value="N" @if($consultation->travel!='Y') checked @endif> No
                         </label>
-                        <textarea name="travel_address" class="form-control" rows="3" style="resize: none;" placeholder="if Yes, please specify!">{{ $consultation->travel_address }}</textarea>
+                        <textarea name="travel_address" class="form-control" rows="2" style="resize: none;" placeholder="if Yes, please specify!">{{ $consultation->travel_address }}</textarea>
+                        <input type="text" name="date_travel" value="@if($consultation->travel=='Y'){{ date('m/d/Y',strtotime($consultation->date_travel)) }}@endif" class="datepickerUpdate form-control form-control-sm">
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Outcome and Date Died</legend>
+                    <div class="form-group">
+                        <textarea name="outcome" class="form-control mb-2" rows="2" style="resize: none;" placeholder="Outcome">{{ $info->outcome }}</textarea>
+                        <label for="">Patient Died?</label>&nbsp;&nbsp;
+                        <label for="died" style="font-size: 0.9em; font-weight: normal;">
+                            <input type="checkbox" name="died" id="died" value="Y" @if($info->died=='Y') checked @endif> Yes
+                        </label>
+                        <input type="text" value="@if($info->died=='Y'){{ date('m/d/Y',strtotime($info->date_died)) }}@endif" name="date_died"  class="datepickerUpdate form-control form-control-sm">
                     </div>
                 </fieldset>
             </div>

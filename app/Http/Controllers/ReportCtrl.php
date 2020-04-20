@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ReportExport;
 use App\PatComorbid;
 use App\Patient;
 use App\Province;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportCtrl extends Controller
 {
@@ -19,16 +21,11 @@ class ReportCtrl extends Controller
     public function index()
     {
         $data = Patient::select(
-                    'patients.*',
-                    'brgy.name as brgy',
-                    'muncity.name as muncity',
-                    'province.name as province',
                     'consultation.*',
+                    'consultation.dob as bd',
+                    'patients.*',
                     'patients.pat_id as pat_code'
                 )
-            ->leftJoin('brgy','brgy.code','=','patients.brgy')
-            ->leftJoin('muncity','muncity.code','=','patients.muncity')
-            ->leftJoin('province','province.code','=','patients.province')
             ->leftJoin('consultation','consultation.pat_id','=','patients.id');
 
         $search = Session::get('reportSearch');
@@ -63,6 +60,7 @@ class ReportCtrl extends Controller
             if($search['colds']) { $data = $data->where('colds', 'Y'); }
             if($search['sorethroat']) { $data = $data->where('sorethroat', 'Y'); }
             if($search['diarrhea']) { $data = $data->where('diarrhea', 'Y'); }
+            if($search['dob']) { $data = $data->where('consultation.dob', 'Y'); }
             if($search['travel']) { $data = $data->where('travel', $search['travel']); }
         }
 
@@ -92,6 +90,7 @@ class ReportCtrl extends Controller
 
     function search(Request $req)
     {
+
         $string = explode('-',$req->daterange);
 
         $date1 = date('Y-m-d',strtotime($string[0]));
@@ -115,13 +114,21 @@ class ReportCtrl extends Controller
             "cough" => $req->cough,
             "colds" => $req->colds,
             "sorethroat" => $req->sorethroat,
-            "diarrhea" => $req->diarrhea
+            "diarrhea" => $req->diarrhea,
+            "dob" => $req->dob
         );
         $data['start'] = $start;
         $data['end'] = $end;
 
         Session::put('reportSearch',$data);
+
         return self::index();
+    }
+
+    function excelExport()
+    {
+        $filename = 'Report_'.date('Y_m_d').'.xlsx';
+        return Excel::download(new ReportExport, $filename);
     }
 
     function reset()

@@ -13,12 +13,16 @@ class Patient extends Model
         'lname',
         'dob',
         'sex',
+        'purok',
         'brgy',
         'muncity',
         'province',
         'parents',
         'contact_num',
         'no_household',
-        'status'
+        'status',
+        'outcome',
+        'died',
+        'date_died'
     ];
 }

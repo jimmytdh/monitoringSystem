@@ -16,6 +16,7 @@
             "colds" => '',
             "sorethroat" => '',
             "diarrhea" => '',
+            "dob" => '',
             "start" => \Carbon\Carbon::today()->startOfMonth()->format('m/d/Y'),
             "end" => \Carbon\Carbon::today()->endOfMonth()->format('m/d/Y')
         );
@@ -166,7 +167,12 @@
                                                 Diarrhea
                                             </label>
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="dob" value="Y" id="" @if($search['dob']=='Y') checked @endif>
+                                                Breathing Difficulty
+                                            </label>
+                                        </td>
                                     </tr>
                                 </table>
                             </fieldset>
@@ -192,9 +198,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="{{ url('/report/reset') }}" class="btn btn-warning">Reset Filter</a>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success">Filter</button>
+                    <a href="{{ url('/report/reset') }}" class="btn btn-warning">Reset Filters</a>
+                    <button type="submit" class="btn btn-info">Filter</button>
+
                 </div>
             </form>
         </div>

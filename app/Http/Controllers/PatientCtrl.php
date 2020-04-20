@@ -70,13 +70,18 @@ class PatientCtrl extends Controller
             'lname' => $req->lname,
             'dob' => self::convertDate($req->dob),
             'sex' => $req->sex,
+            'purok' => $req->purok,
             'brgy' => $req->brgy,
             'muncity' => $req->muncity,
             'province' => $req->province,
             'parents' => $req->parents,
             'contact_num' => $req->contact_num,
-            'no_household' => $req->no_household
+            'no_household' => $req->no_household,
+            'outcome' => $req->outcome,
+            'died' => $req->died
         );
+        if($req->died=='Y')
+            $info['date_died'] = self::convertDate($req->date_died);
 
         $data = Patient::create($info);
         $pat_id = "CTDH" . str_pad($data->id,4,0, STR_PAD_LEFT);
@@ -108,6 +113,7 @@ class PatientCtrl extends Controller
             'colds' => $req->colds,
             'sorethroat' => $req->sorethroat,
             'diarrhea' => $req->diarrhea,
+            'dob' => $req->bd,
             'travel' => $req->travel,
             'travel_address' => $req->travel_address
         );
@@ -122,6 +128,10 @@ class PatientCtrl extends Controller
             $consultation['date_sorethroat'] = self::convertDate($req->date_sorethroat);
         if($req->diarrhea=='Y')
             $consultation['date_diarrhea'] = self::convertDate($req->date_diarrhea);
+        if($req->bd=='Y')
+            $consultation['date_dob'] = self::convertDate($req->date_bd);
+        if($req->travel=='Y')
+            $consultation['date_travel'] = self::convertDate($req->date_travel);
 
         $con = Consultation::create($consultation);
         HistoryCtrl::addHistory($data->id,$con->id,'Consultation', self::convertDate($req->date_consultation));
@@ -163,13 +173,21 @@ class PatientCtrl extends Controller
             'lname' => $req->lname,
             'dob' => self::convertDate($req->dob),
             'sex' => $req->sex,
+            'purok' => $req->purok,
             'brgy' => $req->brgy,
             'muncity' => $req->muncity,
             'province' => $req->province,
             'parents' => $req->parents,
             'contact_num' => $req->contact_num,
-            'no_household' => $req->no_household
+            'no_household' => $req->no_household,
+            'died' => $req->died,
+            'outcome' => $req->outcome
         );
+
+        if($req->died=='Y')
+            $info['date_died'] = self::convertDate($req->date_died);
+        else
+            $info['date_died'] = null;
 
         Patient::find($id)->update($info);
 
@@ -207,6 +225,8 @@ class PatientCtrl extends Controller
             'date_sorethroat' => null,
             'diarrhea' => $req->diarrhea,
             'date_diarrhea' => null,
+            'dob' => $req->bd,
+            'date_dob' => null,
             'travel' => $req->travel,
             'travel_address' => $req->travel_address
         );
@@ -221,6 +241,10 @@ class PatientCtrl extends Controller
             $consultation['date_sorethroat'] = self::convertDate($req->date_sorethroat);
         if($req->diarrhea=='Y')
             $consultation['date_diarrhea'] = self::convertDate($req->date_diarrhea);
+        if($req->bd=='Y')
+            $consultation['date_dob'] = self::convertDate($req->date_bd);
+        if($req->travel=='Y')
+            $consultation['date_travel'] = self::convertDate($req->date_travel);
 
         PatHistory::where('ref_id',$req->consultation_id)
                     ->where('transaction','Consultation')

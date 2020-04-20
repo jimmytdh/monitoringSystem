@@ -10,11 +10,15 @@
 
 @section('body')
     <h2 class="text-success title-header">
-        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#filterReport">
+        Generate Report <small class="text-muted"></small>
+        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#filterReport">
             <i class="fa fa-filter"></i> Filter
             <i class="fa fa-bars"></i>
         </button>
-        Report <small class="text-muted">Generation</small>
+        <a href="{{ url('/report/export') }}" target="_blank" class="btn btn-success btn-sm">
+            <i class="fa fa-file-excel-o"></i> Download
+        </a>
+
     </h2>
     <section class="content">
     @if(count($data) > 0)
@@ -43,7 +47,14 @@
                 <br>Sex: {{ ($row->sex=='M') ? 'Male':'Female' }}
                 <br>Date of Birth: {{ date('m/d/Y',strtotime($row->dob)) }}
             </td>
-            <td style="white-space: normal;">{{ "$row->brgy, $row->muncity, $row->province" }}</td>
+            <td style="white-space: normal;">
+                @if($row->purok)
+                    {{ $row->purok }},
+                @endif
+                {{ \App\Http\Controllers\LocationCtrl::getBrgy($row->brgy) }},
+                {{ \App\Http\Controllers\LocationCtrl::getMuncity($row->muncity) }},
+                {{ \App\Http\Controllers\LocationCtrl::getProvince($row->province) }}
+            </td>
             <td>{{ date('m/d/Y',strtotime($row->date_consultation)) }}</td>
             <td style="white-space: normal;">
                 @if($row->comorbid=='Y')
@@ -85,6 +96,11 @@
 
                 @if($row->diarrhea)
                     <strong>Diarrhea</strong> ({{ date('m/d/Y',strtotime($row->date_diarrhea)) }})
+                    <br>
+                @endif
+
+                @if($row->bd)
+                    <strong>Breathing Difficulty</strong> ({{ date('m/d/Y',strtotime($row->date_dob)) }})
                     <br>
                 @endif
             </td>

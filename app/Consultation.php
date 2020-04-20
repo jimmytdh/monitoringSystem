@@ -23,7 +23,10 @@ class Consultation extends Model
         'date_sorethroat',
         'diarrhea',
         'date_diarrhea',
+        'dob',
+        'date_dob',
         'travel',
         'travel_address',
+        'date_travel'
     ];
 }

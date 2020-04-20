@@ -91,6 +91,7 @@ Route::get('/home/chart','HomeCtrl@chart');
 Route::get('/report','ReportCtrl@index');
 Route::post('/report','ReportCtrl@search');
 Route::get('/report/reset','ReportCtrl@reset');
+Route::get('/report/export','ReportCtrl@excelExport');
 //End Reports
 
 //Library
