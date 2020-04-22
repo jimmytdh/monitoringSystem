@@ -54,7 +54,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="purok" value="{{ $info->purok }}" class="form-control-sm form-control" placeholder="Household No./Purok/Sitio" required>
+                        <input type="text" name="purok" value="{{ $info->purok }}" class="form-control-sm form-control" placeholder="Household No./Purok/Sitio">
                     </div>
                 </fieldset>
                 <fieldset id="contactInfo">
@@ -182,7 +182,7 @@
                     </div>
                 </fieldset>
                 <fieldset>
-                    <legend>Outcome and Date Died</legend>
+                    <legend>Status</legend>
                     <div class="form-group">
                         <textarea name="outcome" class="form-control mb-2" rows="2" style="resize: none;" placeholder="Outcome">{{ $info->outcome }}</textarea>
                         <label for="">Patient Died?</label>&nbsp;&nbsp;

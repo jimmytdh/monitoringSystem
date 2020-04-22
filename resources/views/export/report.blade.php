@@ -1,4 +1,4 @@
-<table>
+<table border="1">
     <thead>
     <tr>
         <th>Municipality of DRU</th>
@@ -65,11 +65,32 @@
                 {{ date('m/d/Y',strtotime($row->date_consultation)) }}
             @endif
         </th>
-        <th>---</th>
-        <th>---</th>
-        <th>---</th>
-        <th>---</th>
-        <th>---</th>
+        <th>
+            <?php
+                $onset = array();
+                if($row->fever)
+                    $onset[] = $row->date_fever;
+                if($row->cough)
+                    $onset[] = $row->date_cough;
+                if($row->colds)
+                    $onset[] = $row->date_colds;
+                if($row->sorethroat)
+                    $onset[] = $row->date_sorethroat;
+                if($row->diarrhea)
+                    $onset[] = $row->date_diarrhea;
+                if($row->bd)
+                    $onset[] = $row->date_dob;
+
+                sort($onset);
+            ?>
+            @if(count($onset) > 0)
+                {{ date('m/d/Y',strtotime($onset[0])) }}
+            @endif
+        </th>
+        <th>Sanbert Marie Garcia / June Mark Alferez</th>
+        <th>0923 636 4937 / 0929 481 0766</th>
+        <th></th>
+        <th></th>
         <th>
             @if($row->status=='ADM')
                 {{ $admit->status }}

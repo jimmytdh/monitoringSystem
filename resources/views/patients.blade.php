@@ -19,7 +19,7 @@ $pageAccess = \Illuminate\Support\Facades\Session::get('pageAccess');
             {{ csrf_field() }}
             <div class="input-group input-group-sm mb-2">
                 <div class="input-group-prepend mr-1">
-                    <button class="btn btn-info" data-toggle="modal" data-target="#addPatient" type="button"><i class="fa fa-plus"></i> Add New</button>
+                    <button class="btn btn-info" data-toggle="modal" data-backdrop="static" data-target="#addPatient" type="button"><i class="fa fa-plus"></i> Add New</button>
                 </div>
                 <input type="text" class="form-control" name="keyword" value="{{ Session::get('patientSearch') }}" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                 <div class="input-group-append">
@@ -90,7 +90,7 @@ $pageAccess = \Illuminate\Support\Facades\Session::get('pageAccess');
                     <td style="font-weight: bold;">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ $row->pat_id }} </a>
                         <div class="dropdown-menu">
-                            <a class="{{ $pageAccess->patient_update }} dropdown-item" href="#infoPatient" data-toggle="modal" data-id="{{ $row->id }}">Update Patient</a>
+                            <a class="{{ $pageAccess->patient_update }} dropdown-item" data-backdrop="static" href="#infoPatient" data-toggle="modal" data-id="{{ $row->id }}">Update Patient</a>
                             <a class="{{ $pageAccess->patient_admit }} dropdown-item" href="#admitPatient" data-toggle="modal" data-id="{{ $row->id }}">Admit Patient</a>
                             <a class="{{ $pageAccess->patient_history }} dropdown-item" href="#historyPatient" data-toggle="modal" data-id="{{ $row->id }}">History</a>
                             <div role="separator" class="dropdown-divider"></div>

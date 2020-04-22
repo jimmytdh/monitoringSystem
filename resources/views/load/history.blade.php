@@ -46,7 +46,7 @@
                                     @endif
                                 </table>
                             </fieldset>
-                            @if($c->fever || $c->cough || $c->colds || $c->sorethroat || $c->diarrhea)
+                            @if($c->fever || $c->cough || $c->colds || $c->sorethroat || $c->diarrhea || $c->dob)
                                 <fieldset disabled>
                                     <legend>Signs and Symptoms</legend>
                                     <table>
@@ -81,7 +81,14 @@
                                         @if($c->diarrhea)
                                             <tr>
                                                 <td>Diarrhea</td>
-                                                <td>: {{ date('M d, Y',strtotime($c->diarrhea)) }}</td>
+                                                <td>: {{ date('M d, Y',strtotime($c->date_diarrhea)) }}</td>
+                                            </tr>
+                                        @endif
+
+                                        @if($c->dob)
+                                            <tr>
+                                                <td>Breathing Difficulty</td>
+                                                <td>: {{ date('M d, Y',strtotime($c->date_dob)) }}</td>
                                             </tr>
                                         @endif
                                     </table>
