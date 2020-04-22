@@ -66,7 +66,7 @@
                         <input type="text" name="contact_num" value="{{ $info->contact_num }}" class="form-control form-control-sm" placeholder="Contact Number" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="no_household" value="{{ $info->no_household }}" class="form-control form-control-sm" placeholder="No. of person of Household" required>
+                        <input type="number" name="no_household" value="{{ $info->no_household }}" class="form-control form-control-sm" placeholder="No. of person of Household" required>
                     </div>
                 </fieldset>
             </div>
