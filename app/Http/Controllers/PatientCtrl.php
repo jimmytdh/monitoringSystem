@@ -59,7 +59,6 @@ class PatientCtrl extends Controller
 
     public function save(Request $req)
     {
-        dd($_POST);
         $check = AccessCtrl::allowProcess('patient_save');
         if(!$check)
             return redirect('/');
