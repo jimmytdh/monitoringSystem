@@ -343,10 +343,14 @@ class PatientCtrl extends Controller
 
     function manualConsultation($id)
     {
-        Consultation::insert([
+        $con = Consultation::create([
             'pat_id' => $id,
-            'date_consultation' => Carbon::today()
+            'date_consultation' => Carbon::today(),
+            'comorbid' => 'N',
+            'home_isolation' => 'N',
+            'travel' => 'N'
         ]);
+        HistoryCtrl::addHistory($id,$con->id,'Consultation', Carbon::today());
         return redirect()->back()->with('status','updated');
     }
 }

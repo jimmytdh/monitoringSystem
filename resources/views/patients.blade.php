@@ -102,7 +102,7 @@ $pageAccess = \Illuminate\Support\Facades\Session::get('pageAccess');
                     </td>
                     <td class="{{ ($row->status!='ADM') ? 'text-danger':'' }}">
                         @if($date == 'None')
-                            <a href="{{ url('/patients/manual/'.$row->id) }}"><small>Add Consultation Date</small></a>
+                            <a href="{{ url('/patients/manual/'.$row->id) }}"><small>Fix Date</small></a>
                         @else
                             <strong><small>{{ $date }}</small></strong>
                         @endif
