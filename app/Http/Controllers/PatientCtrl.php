@@ -340,4 +340,13 @@ class PatientCtrl extends Controller
     {
         return $date = Carbon::parse($date)->format('Y-m-d');
     }
+
+    function manualConsultation($id)
+    {
+        Consultation::insert([
+            'pat_id' => $id,
+            'date_consultation' => Carbon::today()
+        ]);
+        return redirect()->back()->with('status','updated');
+    }
 }

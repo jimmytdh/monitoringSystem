@@ -100,7 +100,13 @@ $pageAccess = \Illuminate\Support\Facades\Session::get('pageAccess');
                             <a class="{{ $pageAccess->patient_delete }} dropdown-item deletePatient text-danger" href="{{ url('/patients/delete/'.$row->id) }}">Delete Patient</a>
                         </div>
                     </td>
-                    <td class="{{ ($row->status!='ADM') ? 'text-danger':'' }}"><strong><small>{{ $date }}</small></strong></td>
+                    <td class="{{ ($row->status!='ADM') ? 'text-danger':'' }}">
+                        @if($date == 'None')
+                            <a href="{{ url('/patients/manual/'.$row->id) }}"><small>Add Consultation Date</small></a>
+                        @else
+                            <strong><small>{{ $date }}</small></strong>
+                        @endif
+                    </td>
                     <td>{{ "$row->lname, $row->fname $row->mname" }}</td>
                     <td>{{ ($row->sex=='M') ? "Male":"Female" }}</td>
                     <td>{{ \App\Http\Controllers\LibraryCtrl::getAge($row->dob) }}</td>

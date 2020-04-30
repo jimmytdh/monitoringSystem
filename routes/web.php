@@ -23,6 +23,7 @@ Route::post('/patients/save','PatientCtrl@save');
 Route::post('/patients/search','PatientCtrl@search');
 Route::get('/patients/delete/{id}','PatientCtrl@delete');
 Route::get('/patients/history/{id}','PatientCtrl@history');
+Route::get('/patients/manual/{id}','PatientCtrl@manualConsultation');
 Route::get('/patients/{id}','PatientCtrl@edit');
 Route::post('/patients/{id}','PatientCtrl@update');
 //End Patients
