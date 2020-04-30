@@ -102,7 +102,7 @@ $pageAccess = \Illuminate\Support\Facades\Session::get('pageAccess');
                     </td>
                     <td class="{{ ($row->status!='ADM') ? 'text-danger':'' }}">
                         @if($date == 'None')
-                            <a href="{{ url('/patients/manual/'.$row->id) }}"><small>Fix Date</small></a>
+                            <a href="#manualDate" data-toggle="modal" data-id="{{ $row->id }}"><small>Fix Date</small></a>
                         @else
                             <strong><small>{{ $date }}</small></strong>
                         @endif
@@ -136,6 +136,7 @@ $pageAccess = \Illuminate\Support\Facades\Session::get('pageAccess');
     @include('modal.info')
     @include('modal.admit')
     @include('modal.history')
+    @include('modal.manualDate')
 @endsection
 
 @section('js')
@@ -208,6 +209,11 @@ $pageAccess = \Illuminate\Support\Facades\Session::get('pageAccess');
         $('a[href="#admitPatient"]').on('click',function(){
             var url = "{{ url('/admitted/save') }}/"+$(this).data('id');
             $('#admittedForm').attr('action',url);
+        });
+
+        $('a[href="#manualDate"]').on('click',function(){
+            var url = "{{ url('/patients/manual') }}/"+$(this).data('id');
+            $('#manualDateForm').attr('action',url);
         });
 
         function filterMuncity(prov_code)

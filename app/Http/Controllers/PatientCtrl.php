@@ -341,16 +341,16 @@ class PatientCtrl extends Controller
         return $date = Carbon::parse($date)->format('Y-m-d');
     }
 
-    function manualConsultation($id)
+    function manualConsultation(Request $req, $id)
     {
         $con = Consultation::create([
             'pat_id' => $id,
-            'date_consultation' => Carbon::today(),
+            'date_consultation' => self::convertDate($req->date_consultation),
             'comorbid' => 'N',
             'home_isolation' => 'N',
             'travel' => 'N'
         ]);
-        HistoryCtrl::addHistory($id,$con->id,'Consultation', Carbon::today());
-        return redirect()->back()->with('status','updated');
+        HistoryCtrl::addHistory($id,$con->id,'Consultation', self::convertDate($req->date_consultation));
+        return redirect('/patients')->with('status','updated');
     }
 }
