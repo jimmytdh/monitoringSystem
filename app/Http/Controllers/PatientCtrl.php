@@ -54,7 +54,7 @@ class PatientCtrl extends Controller
     public function search(Request $req)
     {
         Session::put('patientSearch',$req->keyword);
-        return self::index();
+        return redirect('/patients');
     }
 
     public function save(Request $req)
