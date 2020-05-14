@@ -33,7 +33,7 @@
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="dob" id="dob" value="01/01/1970" class="datepicker form-control-sm form-control">
+                                    <input type="date" name="dob" id="dob" value="1990-01-01" class="form-control-sm form-control">
                                 </div>
                             </fieldset>
                             <fieldset>
@@ -77,7 +77,7 @@
                             <fieldset>
                                 <legend>Consultation</legend>
                                 <div class="form-group">
-                                    <input type="text" name="date_consultation" data-date="{{ date('m/d/Y') }}" value="{{ date('m/d/Y') }}" class="datepicker form-control-sm form-control">
+                                    <input type="date" name="date_consultation" value="{{ date('Y-m-d') }}" class="form-control-sm form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Co-Morbid?</label>
@@ -117,7 +117,7 @@
                                                 Fever
                                             </label>
                                         </td>
-                                        <td><input type="text" name="date_fever" class="datepicker form-control form-control-sm"></td>
+                                        <td><input type="date" name="date_fever" class="form-control form-control-sm"></td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -126,7 +126,7 @@
                                                 Cough
                                             </label>
                                         </td>
-                                        <td><input type="text" name="date_cough" class="datepicker form-control form-control-sm"></td>
+                                        <td><input type="date" name="date_cough" class="form-control form-control-sm"></td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -135,7 +135,7 @@
                                                 Colds
                                             </label>
                                         </td>
-                                        <td><input type="text" name="date_colds" class="datepicker form-control form-control-sm"></td>
+                                        <td><input type="date" name="date_colds" class="form-control form-control-sm"></td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -144,7 +144,7 @@
                                                 Sore Throat
                                             </label>
                                         </td>
-                                        <td><input type="text" name="date_sorethroat" class="datepicker form-control form-control-sm"></td>
+                                        <td><input type="date" name="date_sorethroat" class="form-control form-control-sm"></td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -153,7 +153,7 @@
                                                 Diarrhea
                                             </label>
                                         </td>
-                                        <td><input type="text" name="date_diarrhea" class="datepicker form-control form-control-sm"></td>
+                                        <td><input type="date" name="date_diarrhea" class="form-control form-control-sm"></td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -162,7 +162,7 @@
                                                 Breathing Difficulty
                                             </label>
                                         </td>
-                                        <td><input type="text" name="date_bd" class="datepicker form-control form-control-sm"></td>
+                                        <td><input type="date" name="date_bd" class="form-control form-control-sm"></td>
                                     </tr>
                                 </table>
                             </fieldset>
@@ -178,7 +178,7 @@
                                         <input type="radio" name="travel" id="travelno" value="N" checked> No
                                     </label>
                                     <textarea name="travel_address" class="form-control" rows="2" style="resize: none;" placeholder="if Yes, please specify!"></textarea>
-                                    <input type="text" name="date_travel" class="datepicker form-control form-control-sm">
+                                    <input type="date" name="date_travel" class="form-control form-control-sm">
                                 </div>
                             </fieldset>
                             <fieldset>
@@ -189,7 +189,7 @@
                                     <label for="died" style="font-size: 0.9em; font-weight: normal;">
                                         <input type="checkbox" name="died" id="died" value="Y"> Yes
                                     </label>
-                                    <input type="text" name="date_died" class="datepicker form-control form-control-sm">
+                                    <input type="date" name="date_died" class="form-control form-control-sm">
                                 </div>
                             </fieldset>
                         </div>

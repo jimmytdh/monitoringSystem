@@ -68,7 +68,7 @@ class PatientCtrl extends Controller
             'fname' => $req->fname,
             'mname' => $req->mname,
             'lname' => $req->lname,
-            'dob' => self::convertDate($req->dob),
+            'dob' => $req->dob,
             'sex' => $req->sex,
             'purok' => $req->purok,
             'brgy' => $req->brgy,
@@ -81,7 +81,7 @@ class PatientCtrl extends Controller
             'died' => $req->died
         );
         if($req->died=='Y')
-            $info['date_died'] = self::convertDate($req->date_died);
+            $info['date_died'] = $req->date_died;
 
         $data = Patient::create($info);
         $pat_id = "CTDH" . str_pad($data->id,4,0, STR_PAD_LEFT);
@@ -104,7 +104,7 @@ class PatientCtrl extends Controller
 
         $consultation = array(
             'pat_id' => $data->id,
-            'date_consultation' => self::convertDate($req->date_consultation),
+            'date_consultation' => $req->date_consultation,
             'comorbid' => $req->comorbid,
             'comorbid_details' => $req->comorbid_details,
             'home_isolation' => $req->home_isolation,
@@ -119,22 +119,22 @@ class PatientCtrl extends Controller
         );
 
         if($req->fever=='Y')
-            $consultation['date_fever'] = self::convertDate($req->date_fever);
+            $consultation['date_fever'] = $req->date_fever;
         if($req->cough=='Y')
-            $consultation['date_cough'] = self::convertDate($req->date_cough);
+            $consultation['date_cough'] = $req->date_cough;
         if($req->colds=='Y')
-            $consultation['date_colds'] = self::convertDate($req->date_colds);
+            $consultation['date_colds'] = $req->date_colds;
         if($req->sorethroat=='Y')
-            $consultation['date_sorethroat'] = self::convertDate($req->date_sorethroat);
+            $consultation['date_sorethroat'] = $req->date_sorethroat;
         if($req->diarrhea=='Y')
-            $consultation['date_diarrhea'] = self::convertDate($req->date_diarrhea);
+            $consultation['date_diarrhea'] = $req->date_diarrhea;
         if($req->bd=='Y')
-            $consultation['date_dob'] = self::convertDate($req->date_bd);
+            $consultation['date_dob'] = $req->date_bd;
         if($req->travel=='Y')
-            $consultation['date_travel'] = self::convertDate($req->date_travel);
+            $consultation['date_travel'] = $req->date_travel;
 
         $con = Consultation::create($consultation);
-        HistoryCtrl::addHistory($data->id,$con->id,'Consultation', self::convertDate($req->date_consultation));
+        HistoryCtrl::addHistory($data->id,$con->id,'Consultation', $req->date_consultation);
 
         return redirect('/patients')->with('status','saved');
     }
@@ -185,7 +185,7 @@ class PatientCtrl extends Controller
         );
 
         if($req->died=='Y')
-            $info['date_died'] = self::convertDate($req->date_died);
+            $info['date_died'] = $req->date_died;
         else
             $info['date_died'] = null;
 
@@ -196,14 +196,14 @@ class PatientCtrl extends Controller
             if($c>0)
             {
                 PatComorbid::where('pat_id',$id)
-                                ->where('date_consultation',self::convertDate($req->date_consultation))
+                                ->where('date_consultation',$req->date_consultation)
                                 ->delete();
                 for($i=0; $i<$c; $i++)
                 {
                     PatComorbid::create([
                         'pat_id' => $id,
                         'morbid_id' => $req->comorbidities[$i],
-                        'date_consultation' => self::convertDate($req->date_consultation)
+                        'date_consultation' => $req->date_consultation
                     ]);
                 }
             }
@@ -211,7 +211,7 @@ class PatientCtrl extends Controller
 
 
         $consultation = array(
-            'date_consultation' => self::convertDate($req->date_consultation),
+            'date_consultation' => $req->date_consultation,
             'comorbid' => $req->comorbid,
             'comorbid_details' => $req->comorbid_details,
             'home_isolation' => $req->home_isolation,
@@ -232,24 +232,24 @@ class PatientCtrl extends Controller
         );
 
         if($req->fever=='Y')
-            $consultation['date_fever'] = self::convertDate($req->date_fever);
+            $consultation['date_fever'] = $req->date_fever;
         if($req->cough=='Y')
-            $consultation['date_cough'] = self::convertDate($req->date_cough);
+            $consultation['date_cough'] = $req->date_cough;
         if($req->colds=='Y')
-            $consultation['date_colds'] = self::convertDate($req->date_colds);
+            $consultation['date_colds'] = $req->date_colds;
         if($req->sorethroat=='Y')
-            $consultation['date_sorethroat'] = self::convertDate($req->date_sorethroat);
+            $consultation['date_sorethroat'] = $req->date_sorethroat;
         if($req->diarrhea=='Y')
-            $consultation['date_diarrhea'] = self::convertDate($req->date_diarrhea);
+            $consultation['date_diarrhea'] = $req->date_diarrhea;
         if($req->bd=='Y')
-            $consultation['date_dob'] = self::convertDate($req->date_bd);
+            $consultation['date_dob'] = $req->date_bd;
         if($req->travel=='Y')
-            $consultation['date_travel'] = self::convertDate($req->date_travel);
+            $consultation['date_travel'] = $req->date_travel;
 
         PatHistory::where('ref_id',$req->consultation_id)
                     ->where('transaction','Consultation')
                     ->update([
-                        'date_transaction' => self::convertDate($req->date_consultation)
+                        'date_transaction' => $req->date_consultation
                     ]);
         Consultation::find($req->consultation_id)->update($consultation);
 
@@ -267,7 +267,7 @@ class PatientCtrl extends Controller
                     PatComorbid::create([
                         'pat_id' => $id,
                         'morbid_id' => $req->comorbidities[$i],
-                        'date_consultation' => self::convertDate($req->date_consultation)
+                        'date_consultation' => $req->date_consultation
                     ]);
                 }
             }
@@ -276,7 +276,7 @@ class PatientCtrl extends Controller
 
         $consultation = array(
             'pat_id' => $id,
-            'date_consultation' => self::convertDate($req->date_consultation),
+            'date_consultation' => $req->date_consultation,
             'comorbid' => $req->comorbid,
             'comorbid_details' => $req->comorbid_details,
             'home_isolation' => $req->home_isolation,
@@ -295,18 +295,18 @@ class PatientCtrl extends Controller
         );
 
         if($req->fever=='Y')
-            $consultation['date_fever'] = self::convertDate($req->date_fever);
+            $consultation['date_fever'] = $req->date_fever;
         if($req->cough=='Y')
-            $consultation['date_cough'] = self::convertDate($req->date_cough);
+            $consultation['date_cough'] = $req->date_cough;
         if($req->colds=='Y')
-            $consultation['date_colds'] = self::convertDate($req->date_colds);
+            $consultation['date_colds'] = $req->date_colds;
         if($req->sorethroat=='Y')
-            $consultation['date_sorethroat'] = self::convertDate($req->date_sorethroat);
+            $consultation['date_sorethroat'] = $req->date_sorethroat;
         if($req->diarrhea=='Y')
-            $consultation['date_diarrhea'] = self::convertDate($req->date_diarrhea);
+            $consultation['date_diarrhea'] = $req->date_diarrhea;
 
         $con = Consultation::create($consultation);
-        HistoryCtrl::addHistory($id, $con->id,'Consultation',self::convertDate($req->date_consultation));
+        HistoryCtrl::addHistory($id, $con->id,'Consultation',$req->date_consultation);
         return redirect('/patients')->with('status','updated');
     }
 
@@ -345,12 +345,12 @@ class PatientCtrl extends Controller
     {
         $con = Consultation::create([
             'pat_id' => $id,
-            'date_consultation' => self::convertDate($req->date_consultation),
+            'date_consultation' => $req->date_consultation,
             'comorbid' => 'N',
             'home_isolation' => 'N',
             'travel' => 'N'
         ]);
-        HistoryCtrl::addHistory($id,$con->id,'Consultation', self::convertDate($req->date_consultation));
+        HistoryCtrl::addHistory($id,$con->id,'Consultation', $req->date_consultation);
         return redirect('/patients')->with('status','updated');
     }
 }

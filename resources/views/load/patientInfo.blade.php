@@ -24,7 +24,7 @@
                         </label>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="dob" id="dob" value="{{ date('m/d/Y',strtotime($info->dob)) }}" class="datepickerUpdate form-control-sm form-control">
+                        <input type="date" name="dob" id="dob" value="{{ date('Y-m-d',strtotime($info->dob)) }}" class="form-control-sm form-control">
                     </div>
                 </fieldset>
                 <fieldset id="address">
@@ -74,7 +74,7 @@
                 <fieldset>
                     <legend>Consultation</legend>
                     <div class="form-group">
-                        <input type="text" name="date_consultation" id="date_consultation" value="{{ date('m/d/Y',strtotime($consultation->date_consultation)) }}" class="datepickerUpdate form-control-sm form-control">
+                        <input type="date" name="date_consultation" id="date_consultation" value="{{ date('Y-m-d',strtotime($consultation->date_consultation)) }}" class="form-control-sm form-control">
                     </div>
                     <div class="form-group">
                         <label for="">Co-Morbid?</label>
@@ -117,7 +117,7 @@
                                     Fever
                                 </label>
                             </td>
-                            <td><input type="text" name="date_fever" id="" class="form-control form-control-sm datepickerUpdate" value="{{ date('m/d/Y',strtotime($consultation->date_fever)) }}"></td>
+                            <td><input type="date" name="date_fever" id="" class="form-control form-control-sm" value="@if($consultation->date_fever){{ date('Y-m-d',strtotime($consultation->date_fever)) }}@endif"></td>
                         </tr>
                         <tr>
                             <td>
@@ -126,7 +126,7 @@
                                     Cough
                                 </label>
                             </td>
-                            <td><input type="text" name="date_cough" id="" class="form-control form-control-sm datepickerUpdate" value="{{ date('m/d/Y',strtotime($consultation->date_cough)) }}"></td>
+                            <td><input type="date" name="date_cough" id="" class="form-control form-control-sm" value="@if($consultation->date_cough){{ date('Y-m-d',strtotime($consultation->date_cough)) }}@endif"></td>
                         </tr>
                         <tr>
                             <td>
@@ -135,7 +135,7 @@
                                     Colds
                                 </label>
                             </td>
-                            <td><input type="text" name="date_colds" id="" class="form-control form-control-sm datepickerUpdate" value="{{ date('m/d/Y',strtotime($consultation->date_colds)) }}"></td>
+                            <td><input type="date" name="date_colds" id="" class="form-control form-control-sm" value="@if($consultation->date_colds){{ date('Y-m-d',strtotime($consultation->date_colds)) }}@endif"></td>
                         </tr>
                         <tr>
                             <td>
@@ -144,7 +144,7 @@
                                     Sore Throat
                                 </label>
                             </td>
-                            <td><input type="text" name="date_sorethroat" id="" class="form-control form-control-sm datepickerUpdate" value="{{ date('m/d/Y',strtotime($consultation->date_sorethroat)) }}"></td>
+                            <td><input type="date" name="date_sorethroat" id="" class="form-control form-control-sm" value="@if($consultation->date_sorethroat){{ date('Y-m-d',strtotime($consultation->date_sorethroat)) }}@endif"></td>
                         </tr>
                         <tr>
                             <td>
@@ -153,7 +153,7 @@
                                     Diarrhea
                                 </label>
                             </td>
-                            <td><input type="text" name="date_diarrhea" id="" class="form-control form-control-sm datepickerUpdate" value="{{ date('m/d/Y',strtotime($consultation->date_diarrhea)) }}"></td>
+                            <td><input type="date" name="date_diarrhea" id="" class="form-control form-control-sm" value="@if($consultation->date_diarrhea){{ date('Y-m-d',strtotime($consultation->date_diarrhea)) }}@endif"></td>
                         </tr>
                         <tr>
                             <td>
@@ -162,7 +162,7 @@
                                     Breathing Difficulty
                                 </label>
                             </td>
-                            <td><input type="text" name="date_bd" id="" class="form-control form-control-sm datepickerUpdate" value="{{ date('m/d/Y',strtotime($consultation->date_dob)) }}"></td>
+                            <td><input type="date" name="date_bd" id="" class="form-control form-control-sm" value="@if($consultation->date_dob){{ date('Y-m-d',strtotime($consultation->date_dob)) }}@endif"></td>
                         </tr>
                     </table>
                 </fieldset>
@@ -178,7 +178,7 @@
                             <input type="radio" name="travel" id="travelno" value="N" @if($consultation->travel!='Y') checked @endif> No
                         </label>
                         <textarea name="travel_address" class="form-control" rows="2" style="resize: none;" placeholder="if Yes, please specify!">{{ $consultation->travel_address }}</textarea>
-                        <input type="text" name="date_travel" value="@if($consultation->travel=='Y'){{ date('m/d/Y',strtotime($consultation->date_travel)) }}@endif" class="datepickerUpdate form-control form-control-sm">
+                        <input type="date" name="date_travel" value="@if($consultation->travel=='Y'){{ date('Y-m-d',strtotime($consultation->date_travel)) }}@endif" class="form-control form-control-sm">
                     </div>
                 </fieldset>
                 <fieldset>
@@ -189,7 +189,7 @@
                         <label for="died" style="font-size: 0.9em; font-weight: normal;">
                             <input type="checkbox" name="died" id="died" value="Y" @if($info->died=='Y') checked @endif> Yes
                         </label>
-                        <input type="text" value="@if($info->died=='Y'){{ date('m/d/Y',strtotime($info->date_died)) }}@endif" name="date_died"  class="datepickerUpdate form-control form-control-sm">
+                        <input type="date" value="@if($info->died=='Y'){{ date('Y-m-d',strtotime($info->date_died)) }}@endif" name="date_died"  class="form-control form-control-sm">
                     </div>
                 </fieldset>
             </div>
